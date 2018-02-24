@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Domain url:</strong>
+  <%= @domain.domain_url %>
+</p>
+
+<p>
+  <strong>Company name:</strong>
+  <%= @domain.company_name %>
+</p>
+
+<%= link_to 'Edit', edit_domain_path(@domain) %> |
+<%= link_to 'Back', domains_path %>

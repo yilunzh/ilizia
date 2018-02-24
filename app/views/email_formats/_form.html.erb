@@ -1,0 +1,42 @@
+<%= form_with(model: email_format, local: true) do |form| %>
+  <% if email_format.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(email_format.errors.count, "error") %> prohibited this email_format from being saved:</h2>
+
+      <ul>
+      <% email_format.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :domain_id %>
+    <%= form.text_field :domain_id, id: :email_format_domain_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :format %>
+    <%= form.text_field :format, id: :email_format_format %>
+  </div>
+
+  <div class="field">
+    <%= form.label :valid %>
+    <%= form.text_field :valid, id: :email_format_valid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :email_format_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :score %>
+    <%= form.number_field :score, id: :email_format_score %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

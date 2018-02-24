@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @email_format.domain_id %>
+</p>
+
+<p>
+  <strong>Format:</strong>
+  <%= @email_format.format %>
+</p>
+
+<p>
+  <strong>Valid:</strong>
+  <%= @email_format.valid %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @email_format.status %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @email_format.score %>
+</p>
+
+<%= link_to 'Edit', edit_email_format_path(@email_format) %> |
+<%= link_to 'Back', email_formats_path %>
