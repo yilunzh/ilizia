@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @person_email_search.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @person_email_search.last_name %>
+</p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @person_email_search.domain_url %>
+</p>
+
+<%= link_to 'Edit', edit_person_email_search_path(@person_email_search) %> |
+<%= link_to 'Back', person_email_searches_path %>
