@@ -1,10 +1,11 @@
+require 'pry'
 class DomainsController < ApplicationController
   before_action :set_domain, only: [:show, :edit, :update, :destroy]
 
   # GET /domains
   # GET /domains.json
   def index
-    @domains = Domain.all
+    @domains = Domain.search(params[:search])
   end
 
   # GET /domains/1

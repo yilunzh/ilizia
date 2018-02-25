@@ -2,6 +2,13 @@
 
 <h1>Domains</h1>
 
+<%= form_tag domains_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "search", :name => nil %>
+  </p>
+<% end %>
+
 <table>
   <thead>
     <tr>
@@ -12,14 +19,16 @@
   </thead>
 
   <tbody>
-    <% @domains.each do |domain| %>
-      <tr>
-        <td><%= domain.domain_url %></td>
-        <td><%= domain.company_name %></td>
-        <td><%= link_to 'Show', domain %></td>
-        <td><%= link_to 'Edit', edit_domain_path(domain) %></td>
-        <td><%= link_to 'Destroy', domain, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% if @domains != nil %>
+      <% @domains.each do |domain| %>
+        <tr>
+          <td><%= domain.domain_url %></td>
+          <td><%= domain.company_name %></td>
+          <td><%= link_to 'Show', domain %></td>
+          <td><%= link_to 'Edit', edit_domain_path(domain) %></td>
+          <td><%= link_to 'Destroy', domain, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
