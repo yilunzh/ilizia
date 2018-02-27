@@ -29,7 +29,12 @@ class PersonEmailSearchesController < ApplicationController
 
     respond_to do |format|
       if @person_email_search.save
-        @person_email_search.search_valid_emails
+        @search_results = @person_email_search.search_valid_emails
+        
+        @search_results.each do |email_format, status|
+          @person_email_search.domain_email_formats.create(format: email_format, status: status, score: 0)
+        end
+        
         format.html { redirect_to @person_email_search, notice: 'Person email search was successfully created.' }
         format.json { render :show, status: :created, location: @person_email_search }
       else
