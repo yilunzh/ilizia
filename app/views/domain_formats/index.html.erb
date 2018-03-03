@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Domain Formats</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Domain url</th>
+      <th>Format</th>
+      <th>Status</th>
+      <th>Score</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @domain_formats.each do |domain_format| %>
+      <tr>
+        <td><%= domain_format.domain_url %></td>
+        <td><%= domain_format.format %></td>
+        <td><%= domain_format.status %></td>
+        <td><%= domain_format.score %></td>
+        <td><%= link_to 'Show', domain_format %></td>
+        <td><%= link_to 'Edit', edit_domain_format_path(domain_format) %></td>
+        <td><%= link_to 'Destroy', domain_format, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Domain Format', new_domain_format_path %>

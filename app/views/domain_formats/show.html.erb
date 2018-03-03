@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Domain url:</strong>
+  <%= @domain_format.domain_url %>
+</p>
+
+<p>
+  <strong>Format:</strong>
+  <%= @domain_format.format %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @domain_format.status %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @domain_format.score %>
+</p>
+
+<%= link_to 'Edit', edit_domain_format_path(@domain_format) %> |
+<%= link_to 'Back', domain_formats_path %>

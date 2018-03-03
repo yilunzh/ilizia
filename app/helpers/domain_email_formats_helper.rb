@@ -1,2 +1,0 @@
-module DomainEmailFormatsHelper
-end

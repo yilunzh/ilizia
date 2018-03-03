@@ -1,0 +1,32 @@
+<%= form_with(model: person_search, local: true) do |form| %>
+  <% if person_search.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(person_search.errors.count, "error") %> prohibited this person_search from being saved:</h2>
+
+      <ul>
+      <% person_search.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name, id: :person_search_first_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name, id: :person_search_last_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :domain_url %>
+    <%= form.text_field :domain_url, id: :person_search_domain_url %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

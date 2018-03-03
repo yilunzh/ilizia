@@ -1,0 +1,37 @@
+<%= form_with(model: domain_format, local: true) do |form| %>
+  <% if domain_format.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(domain_format.errors.count, "error") %> prohibited this domain_format from being saved:</h2>
+
+      <ul>
+      <% domain_format.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :domain_url %>
+    <%= form.text_field :domain_url, id: :domain_format_domain_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :format %>
+    <%= form.text_field :format, id: :domain_format_format %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :domain_format_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :score %>
+    <%= form.number_field :score, id: :domain_format_score %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
