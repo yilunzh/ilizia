@@ -20,7 +20,6 @@ class PersonSearch < ApplicationRecord
 					results[email_format] = validate_email(email_address)
 				end
 			end
-
 		end
 
 		return results
@@ -46,7 +45,8 @@ class PersonSearch < ApplicationRecord
                                           format: email_format, status: status, score: 0)
 	end
 
-	def associate_exisitng_domain_formats
+	def associate_exisitng_domain_format(existing_domain_format)
+		self.domain_formats << existing_domain_format
 	end
 
 	def generate_email_addresses
@@ -78,7 +78,7 @@ class PersonSearch < ApplicationRecord
 		# params["ipaddress"] = ipaddress
 		 
 		#response = JSON.parse(RestClient.get url, {params: params})
-		#results[email_format] = response["status"]
+		#return response["status"]
 
 		result_status = ["valid", "invalid"]
 		status = result_status.sample

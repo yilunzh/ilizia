@@ -42,7 +42,7 @@ class PersonSearchesController < ApplicationController
             if existing_domain_format.empty?
               @person_search.create_new_domain_format(person_search_params[:domain_url], email_format, status)
             else
-              @person_search.domain_formats << existing_domain_format
+              @person_search.associate_exisitng_domain_format(existing_domain_format)
             end
           end  
         end
