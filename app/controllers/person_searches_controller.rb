@@ -28,14 +28,19 @@ class PersonSearchesController < ApplicationController
 
     respond_to do |format|
       if @person_search.save
-        @search_results = @person_search.search_valid_emails
+        @search_results = @person_search.search_valid_email
         
-        if @person_search.domain_formats.empty?
+        existing_domain_formats = @person_search.search_existing_domain_formats
+
+        if existing_domain_formats.empty?
           @search_results.each do |email_format, status|
             @person_search.domain_formats.create(domain_url: person_search_params["domain_url"], 
-                                                             format: email_format, status: status, score: 0)
+                                                 format: email_format, status: status, score: 0)
           end
+        else
+          @person_search.domain_formats << existing_domain_formats
         end
+
         format.html { redirect_to @person_search, notice: 'Person search was successfully created.' }
         format.json { render :show, status: :created, location: @person_search }
       else

@@ -4,8 +4,8 @@ require 'pry'
 class PersonSearch < ApplicationRecord
 	has_and_belongs_to_many :domain_formats, :join_table => :person_searches_domain_formats
 
-	def search_valid_emails
-		domain_formats = DomainFormat.search(domain_url)
+	def search_valid_email
+		domain_formats = search_existing_domain_formats
 
 		results = {}
 
@@ -22,9 +22,14 @@ class PersonSearch < ApplicationRecord
 		return results
 	end
 
+	def search_existing_domain_formats
+		return DomainFormat.search(domain_url)
+	end
+
 	def generate_email_addresses
 		
-		return { "fn.ln@domain_url": "#{first_name}.#{last_name}@#{domain_url}",
+		return { 
+						 #{}"fn.ln@domain_url": "#{first_name}.#{last_name}@#{domain_url}",
 						 "fn@domain_url": "#{first_name}@#{domain_url}"
 						}
 	end
