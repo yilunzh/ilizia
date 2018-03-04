@@ -10,6 +10,8 @@ class PersonSearchesController < ApplicationController
   # GET /person_searches/1
   # GET /person_searches/1.json
   def show
+    @domain_formats = @person_search.domain_formats
+    #binding.pry
   end
 
   # GET /person_searches/new

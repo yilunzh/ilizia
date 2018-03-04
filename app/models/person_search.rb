@@ -27,9 +27,8 @@ class PersonSearch < ApplicationRecord
 	end
 
 	def generate_email_addresses
-		
 		return { 
-						 #{}"fn.ln@domain_url": "#{first_name}.#{last_name}@#{domain_url}",
+						 "fn.ln@domain_url": "#{first_name}.#{last_name}@#{domain_url}",
 						 "fn@domain_url": "#{first_name}@#{domain_url}"
 						}
 	end
@@ -51,5 +50,8 @@ class PersonSearch < ApplicationRecord
 		end
 
 		return results
+	end
+
+	def format_to_email
 	end
 end
