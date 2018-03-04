@@ -9,6 +9,8 @@
       <th>Format</th>
       <th>Status</th>
       <th>Score</th>
+      <th>Upvotes</th>
+      <th>Downvotes</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,6 +22,9 @@
         <td><%= domain_format.format %></td>
         <td><%= domain_format.status %></td>
         <td><%= domain_format.score %></td>
+        <td><%= domain_format.upvote_count %></td>
+        <td><%= domain_format.downvote_count %></td>
+
         <td><%= link_to 'Show', domain_format %></td>
         <td><%= link_to 'Edit', edit_domain_format_path(domain_format) %></td>
         <td><%= link_to 'Destroy', domain_format, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -20,5 +20,15 @@
   <%= @domain_format.score %>
 </p>
 
+<p>
+  <strong>Upvote Count:</strong>
+  <%= @domain_format.upvote_count %>
+</p>
+
+<p>
+  <strong>Downvote Count</strong>
+  <%= @domain_format.downvote_count %>
+</p>
+
 <%= link_to 'Edit', edit_domain_format_path(@domain_format) %> |
 <%= link_to 'Back', domain_formats_path %>

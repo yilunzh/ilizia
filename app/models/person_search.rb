@@ -35,14 +35,18 @@ class PersonSearch < ApplicationRecord
 
 	def create_new_domain_formats(search_results)
     search_results.each do |email_format, status|
+    	score = generate_or_update_score(status)
     	self.domain_formats.create(domain_url: domain_url, 
-                                          format: email_format, status: status, score: 0)
+                                 format: email_format, status: status, score: score[:score], 
+                                 upvote_count: score[:upvote_count], downvote_count: score[:downvote_count])
   	end
 	end
 
 	def create_new_domain_format(domain_url, email_format, status)
+			score = generate_or_update_score(status)
     	self.domain_formats.create(domain_url: domain_url, 
-                                          format: email_format, status: status, score: 0)
+                                 format: email_format, status: status, score: score[:score], 
+                                 upvote_count: score[:upvote_count], downvote_count: score[:downvote_count])
 	end
 
 	def associate_exisitng_domain_format(existing_domain_format)
@@ -61,7 +65,6 @@ class PersonSearch < ApplicationRecord
 		results = {}
 		email_addresses.each do |email_format, email_address|
 			results[email_format] = validate_email(email_address)
-			
 		end
 
 		return results
@@ -83,9 +86,27 @@ class PersonSearch < ApplicationRecord
 		result_status = ["valid", "invalid"]
 		status = result_status.sample
 
-		return status
-			
+		return status		
 	end
+
+	def generate_or_update_score(status, score=0, upvote_count=0, downvote_count=0)
+		case status
+		when "valid"
+			score += 1
+			upvote_count += 1
+		when "invalid"
+			score -= 1
+			downvote_count += 1
+		else
+		end
+		
+
+		return {
+			score: score,
+			upvote_count: upvote_count,
+			downvote_count: downvote_count	
+		}
+	end 
 
 	def format_to_email
 	end

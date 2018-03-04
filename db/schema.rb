@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20180303183612) do
     t.string "format"
     t.string "status"
     t.integer "score"
+    t.integer "upvote_count"
+    t.integer "downvote_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -31,6 +31,16 @@
     <%= form.number_field :score, id: :domain_format_score %>
   </div>
 
+  <div class="field">
+    <%= form.label :upvote_count %>
+    <%= form.number_field :upvote_count, id: :domain_format_upvote_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :downvote_count %>
+    <%= form.number_field :downvote_count, id: :domain_format_downvote_count %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

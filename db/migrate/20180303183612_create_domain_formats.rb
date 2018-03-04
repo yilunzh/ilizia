@@ -5,6 +5,8 @@ class CreateDomainFormats < ActiveRecord::Migration[5.1]
       t.string :format
       t.string :status
       t.integer :score
+      t.integer :upvote_count
+      t.integer :downvote_count
 
       t.timestamps
     end
