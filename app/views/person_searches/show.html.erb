@@ -16,7 +16,7 @@
 </p>
 
 <% @domain_formats.each do |email_format| %>
-	<p><%= email_format.format %> - <%= email_format.status %></p>
+	<p><%= email_format.format %> : <%= email_format.status %> : <%= email_format.score %> : <%= email_format.upvote_count %> : <%= email_format.downvote_count %></p>
 <% end %>
 
 <%= link_to 'Edit', edit_person_search_path(@person_search) %> |

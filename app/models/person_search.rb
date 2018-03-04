@@ -35,7 +35,7 @@ class PersonSearch < ApplicationRecord
 
 	def create_new_domain_formats(search_results)
     search_results.each do |email_format, status|
-    	score = generate_or_update_score(status)
+    	score = DomainFormat.generate_or_update_score_on_status(status)
     	self.domain_formats.create(domain_url: domain_url, 
                                  format: email_format, status: status, score: score[:score], 
                                  upvote_count: score[:upvote_count], downvote_count: score[:downvote_count])
@@ -43,7 +43,7 @@ class PersonSearch < ApplicationRecord
 	end
 
 	def create_new_domain_format(domain_url, email_format, status)
-			score = generate_or_update_score(status)
+			score = DomainFormat.generate_or_update_score_on_status(status)
     	self.domain_formats.create(domain_url: domain_url, 
                                  format: email_format, status: status, score: score[:score], 
                                  upvote_count: score[:upvote_count], downvote_count: score[:downvote_count])
@@ -100,7 +100,6 @@ class PersonSearch < ApplicationRecord
 		else
 		end
 		
-
 		return {
 			score: score,
 			upvote_count: upvote_count,

@@ -44,6 +44,7 @@ class PersonSearchesController < ApplicationController
             else
               @person_search.associate_exisitng_domain_format(existing_domain_format)
             end
+            existing_domain_format[0].update_score(status)
           end  
         end
 
