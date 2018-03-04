@@ -30,17 +30,21 @@ class PersonSearchesController < ApplicationController
 
     respond_to do |format|
       if @person_search.save
-        @search_results = @person_search.search_valid_email
         
-        existing_domain_formats = @person_search.search_existing_domain_formats
+        existing_domain = @person_search.search_existing_domain
+        @search_results = @person_search.search_valid_email(existing_domain)
 
-        if existing_domain_formats.empty?
-          @search_results.each do |email_format, status|
-            @person_search.domain_formats.create(domain_url: person_search_params["domain_url"], 
-                                                 format: email_format, status: status, score: 0)
-          end
+        if existing_domain.empty?
+          @person_search.create_new_domain_formats(@search_results)
         else
-          @person_search.domain_formats << existing_domain_formats
+          @search_results.each do |email_format, status|
+            existing_domain_format = @person_search.search_existing_domain_format(person_search_params[:domain_url], email_format)
+            if existing_domain_format.empty?
+              @person_search.create_new_domain_format(person_search_params[:domain_url], email_format, status)
+            else
+              @person_search.domain_formats << existing_domain_format
+            end
+          end  
         end
 
         format.html { redirect_to @person_search, notice: 'Person search was successfully created.' }
