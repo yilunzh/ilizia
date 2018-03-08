@@ -10,14 +10,11 @@ class PersonSearch < ApplicationRecord
 
 		if existing_domain.empty?
 			results = validate_emails(email_addresses)
-		else
-			domain_formats.each do |record|
-				results[record.format] = record.status
-			end
-			
+		else			
 			email_addresses.each do |email_format, email_address|
 				if not results.key?(email_format)
-					results[email_format] = validate_email(email_address)
+					results[email_format] = { "email_address": email_address,
+																		"status": validate_email(email_address)}
 				end
 			end
 		end
@@ -34,20 +31,17 @@ class PersonSearch < ApplicationRecord
 	end
 
 	def create_new_domain_formats(search_results, domain_url)
-    search_results.each do |email_format, status|
-    	create_new_domain_format(domain_url, email_format, status)
+    search_results.each do |email_format, result|
+    	create_new_domain_format(domain_url, email_format, result[:status])
   	end
 	end
 
 	def create_new_domain_format(domain_url, email_format, status)
     	domain_format = self.domain_formats.build(domain_url: domain_url, 
-                                 format: email_format, status: status, score: 0, 
+                                 format: email_format, score: 0, 
                                  upvote_count: 0, downvote_count: 0)
 			domain_format.generate_or_update_score_on_status(status)
 			self.save
-    	# self.domain_formats.create(domain_url: domain_url, 
-     #                             format: email_format, status: status, score: score[:score], 
-     #                             upvote_count: score[:upvote_count], downvote_count: score[:downvote_count])
 	end
 
 	def associate_exisitng_domain_format(existing_domain_format)
@@ -66,7 +60,8 @@ class PersonSearch < ApplicationRecord
 	def validate_emails(email_addresses)
 		results = {}
 		email_addresses.each do |email_format, email_address|
-			results[email_format] = validate_email(email_address)
+			results[email_format] = { "email_address": email_address,
+																"status": validate_email(email_address)}
 		end
 
 		return results

@@ -69,6 +69,6 @@ class DomainFormatsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def domain_format_params
-      params.require(:domain_format).permit(:domain_url, :format, :status, :score)
+      params.require(:domain_format).permit(:domain_url, :format, :score, :upvote_count, :downvote_count)
     end
 end

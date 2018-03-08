@@ -3,7 +3,6 @@ class CreateDomainFormats < ActiveRecord::Migration[5.1]
     create_table :domain_formats do |t|
       t.string :domain_url
       t.string :format
-      t.string :status
       t.integer :score
       t.integer :upvote_count
       t.integer :downvote_count

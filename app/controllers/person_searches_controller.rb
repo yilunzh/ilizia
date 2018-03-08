@@ -1,3 +1,5 @@
+require 'pry'
+
 class PersonSearchesController < ApplicationController
   before_action :set_person_search, only: [:show, :edit, :update, :destroy]
 
@@ -37,14 +39,15 @@ class PersonSearchesController < ApplicationController
         if existing_domain.empty?
           @person_search.create_new_domain_formats(@search_results, person_search_params[:domain_url])
         else
-          @search_results.each do |email_format, status|
+          @search_results.each do |email_format, result|
             existing_domain_format = @person_search.search_existing_domain_format(person_search_params[:domain_url], email_format)
             if existing_domain_format.empty?
-              @person_search.create_new_domain_format(person_search_params[:domain_url], email_format, status)
+              @person_search.create_new_domain_format(person_search_params[:domain_url], email_format)
             else
               @person_search.associate_exisitng_domain_format(existing_domain_format)
             end
-            existing_domain_format[0].generate_or_update_score(status)
+            existing_domain_format[0].generate_or_update_score_on_status(result[:status])
+            existing_domain_format[0].save
           end  
         end
 

@@ -12,7 +12,6 @@ class DomainFormat < ApplicationRecord
 	end
 
 	def generate_or_update_score_on_status(status)
-		binding.pry
 		case status
 		when "valid"
 			self.score += 1

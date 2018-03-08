@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20180303183612) do
   create_table "domain_formats", force: :cascade do |t|
     t.string "domain_url"
     t.string "format"
-    t.string "status"
     t.integer "score"
     t.integer "upvote_count"
     t.integer "downvote_count"
