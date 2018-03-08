@@ -1,3 +1,5 @@
+require 'pry'
+
 class DomainFormat < ApplicationRecord
 	has_and_belongs_to_many :person_searches, :join_table => :person_searches_domain_formats
 
@@ -9,25 +11,7 @@ class DomainFormat < ApplicationRecord
 		where(domain_url: domain_url, format: email_format)
 	end
 
-	def self.generate_or_update_score_on_status(status, score=0, upvote_count=0, downvote_count=0)
-		case status
-		when "valid"
-			score += 1
-			upvote_count += 1
-		when "invalid"
-			score -= 1
-			downvote_count += 1
-		else
-		end
-		
-		return {
-			score: score,
-			upvote_count: upvote_count,
-			downvote_count: downvote_count	
-		}
-	end 
-
-	def update_score(status)
+	def generate_or_update_score_on_status(status)
 		binding.pry
 		case status
 		when "valid"
@@ -39,12 +23,6 @@ class DomainFormat < ApplicationRecord
 		else
 		end
 		
-		self.save
-
-		return {
-			score: score,
-			upvote_count: upvote_count,
-			downvote_count: downvote_count	
-		}
-	end
+		self.assign_attributes(score: score, upvote_count: upvote_count, downvote_count: downvote_count)
+	end 
 end

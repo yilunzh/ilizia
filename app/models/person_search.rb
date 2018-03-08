@@ -33,20 +33,21 @@ class PersonSearch < ApplicationRecord
 		return DomainFormat.search_domain_format(domain_url, email_format)
 	end
 
-	def create_new_domain_formats(search_results)
+	def create_new_domain_formats(search_results, domain_url)
     search_results.each do |email_format, status|
-    	score = DomainFormat.generate_or_update_score_on_status(status)
-    	self.domain_formats.create(domain_url: domain_url, 
-                                 format: email_format, status: status, score: score[:score], 
-                                 upvote_count: score[:upvote_count], downvote_count: score[:downvote_count])
+    	create_new_domain_format(domain_url, email_format, status)
   	end
 	end
 
 	def create_new_domain_format(domain_url, email_format, status)
-			score = DomainFormat.generate_or_update_score_on_status(status)
-    	self.domain_formats.create(domain_url: domain_url, 
-                                 format: email_format, status: status, score: score[:score], 
-                                 upvote_count: score[:upvote_count], downvote_count: score[:downvote_count])
+    	domain_format = self.domain_formats.build(domain_url: domain_url, 
+                                 format: email_format, status: status, score: 0, 
+                                 upvote_count: 0, downvote_count: 0)
+			domain_format.generate_or_update_score_on_status(status)
+			self.save
+    	# self.domain_formats.create(domain_url: domain_url, 
+     #                             format: email_format, status: status, score: score[:score], 
+     #                             upvote_count: score[:upvote_count], downvote_count: score[:downvote_count])
 	end
 
 	def associate_exisitng_domain_format(existing_domain_format)
@@ -57,7 +58,8 @@ class PersonSearch < ApplicationRecord
 		return { 
 						 "fn.ln@domain_url": "#{first_name}.#{last_name}@#{domain_url}",
 						 "fn@domain_url": "#{first_name}@#{domain_url}",
-						 "fn_ln@domain_url": "#{first_name}_#{last_name}@#{domain_url}"
+						 "fn_ln@domain_url": "#{first_name}_#{last_name}@#{domain_url}",
+						 "fn-ln@domain_url": "#{first_name}-#{last_name}@#{domain_url}"
 						}
 	end
 
@@ -88,24 +90,6 @@ class PersonSearch < ApplicationRecord
 
 		return status		
 	end
-
-	def generate_or_update_score(status, score=0, upvote_count=0, downvote_count=0)
-		case status
-		when "valid"
-			score += 1
-			upvote_count += 1
-		when "invalid"
-			score -= 1
-			downvote_count += 1
-		else
-		end
-		
-		return {
-			score: score,
-			upvote_count: upvote_count,
-			downvote_count: downvote_count	
-		}
-	end 
 
 	def format_to_email
 	end

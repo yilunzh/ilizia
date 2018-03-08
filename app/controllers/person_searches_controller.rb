@@ -35,7 +35,7 @@ class PersonSearchesController < ApplicationController
         @search_results = @person_search.search_valid_email(existing_domain)
 
         if existing_domain.empty?
-          @person_search.create_new_domain_formats(@search_results)
+          @person_search.create_new_domain_formats(@search_results, person_search_params[:domain_url])
         else
           @search_results.each do |email_format, status|
             existing_domain_format = @person_search.search_existing_domain_format(person_search_params[:domain_url], email_format)
@@ -44,7 +44,7 @@ class PersonSearchesController < ApplicationController
             else
               @person_search.associate_exisitng_domain_format(existing_domain_format)
             end
-            existing_domain_format[0].update_score(status)
+            existing_domain_format[0].generate_or_update_score(status)
           end  
         end
 
