@@ -1,0 +1,73 @@
+<%= form_with(model: search_result, local: true) do |form| %>
+  <% if search_result.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(search_result.errors.count, "error") %> prohibited this search_result from being saved:</h2>
+
+      <ul>
+      <% search_result.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :email_address %>
+    <%= form.text_field :email, id: :search_result_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :search_result_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sub_status %>
+    <%= form.text_field :sub_status, id: :search_result_sub_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :account %>
+    <%= form.text_field :account, id: :search_result_account %>
+  </div>
+
+  <div class="field">
+    <%= form.label :domain %>
+    <%= form.text_field :domain, id: :search_result_domain %>
+  </div>
+
+  <div class="field">
+    <%= form.label :disposable %>
+    <%= form.text_field :disposable, id: :search_result_disposable %>
+  </div>
+
+  <div class="field">
+    <%= form.label :toxic %>
+    <%= form.text_field :toxic, id: :search_result_toxic %>
+  </div>
+
+  <div class="field">
+    <%= form.label :firstname %>
+    <%= form.text_field :firstname , id: :search_result_firstname %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :lastname %>
+    <%= form.text_field :lastname, id: :search_result_lastname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :gender %>
+    <%= form.text_field :gender, id: :search_result_gender %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location, id: :search_result_location %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

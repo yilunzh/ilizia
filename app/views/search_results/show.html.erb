@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Email format:</strong>
+  <%= @search_result.email_format %>
+</p>
+
+<p>
+  <strong>Email Address:</strong>
+  <%= @search_result.email_address %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @search_result.status %>
+</p>
+
+<%= link_to 'Edit', edit_search_result_path(@search_result) %> |
+<%= link_to 'Back', search_results_path %>

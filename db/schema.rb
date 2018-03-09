@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180303183612) do
+ActiveRecord::Schema.define(version: 20180309041953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,24 @@ ActiveRecord::Schema.define(version: 20180303183612) do
     t.bigint "domain_format_id"
     t.index ["domain_format_id"], name: "index_person_searches_domain_formats_on_domain_format_id"
     t.index ["person_search_id"], name: "index_person_searches_domain_formats_on_person_search_id"
+  end
+
+  create_table "search_results", force: :cascade do |t|
+    t.bigint "person_search_id"
+    t.string "email_address"
+    t.string "status"
+    t.string "sub_status"
+    t.string "account"
+    t.string "domain"
+    t.boolean "disposable"
+    t.boolean "toxic"
+    t.string "firstname"
+    t.string "lastname"
+    t.string "gender"
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_search_id"], name: "index_search_results_on_person_search_id"
   end
 
 end

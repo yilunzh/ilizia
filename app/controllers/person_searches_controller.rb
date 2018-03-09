@@ -13,6 +13,7 @@ class PersonSearchesController < ApplicationController
   # GET /person_searches/1.json
   def show
     @domain_formats = @person_search.domain_formats
+    @search_results = @person_search.search_results
     #binding.pry
   end
 
@@ -40,6 +41,7 @@ class PersonSearchesController < ApplicationController
           @person_search.create_new_domain_formats(@search_results, person_search_params[:domain_url])
         else
           @search_results.each do |email_format, result|
+
             existing_domain_format = @person_search.search_existing_domain_format(person_search_params[:domain_url], email_format)
             if existing_domain_format.empty?
               @person_search.create_new_domain_format(person_search_params[:domain_url], email_format)

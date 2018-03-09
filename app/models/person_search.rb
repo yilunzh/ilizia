@@ -3,6 +3,7 @@ require 'pry'
 
 class PersonSearch < ApplicationRecord
 	has_and_belongs_to_many :domain_formats, :join_table => :person_searches_domain_formats
+	has_many :search_results
 
 	def search_valid_email(existing_domain)
 		results = {}
@@ -49,11 +50,12 @@ class PersonSearch < ApplicationRecord
 	end
 
 	def generate_email_addresses
+		first_letter_first_name = first_name[0]
 		return { 
 						 "fn.ln@domain_url": "#{first_name}.#{last_name}@#{domain_url}",
 						 "fn@domain_url": "#{first_name}@#{domain_url}",
-						 "fn_ln@domain_url": "#{first_name}_#{last_name}@#{domain_url}",
-						 "fn-ln@domain_url": "#{first_name}-#{last_name}@#{domain_url}"
+						 "flln@domain_url": "#{first_letter_first_name}#{last_name}@#{domain_url}"
+
 						}
 	end
 
@@ -77,15 +79,32 @@ class PersonSearch < ApplicationRecord
 		# Uncomment to use the optional API with IP Lookup
 		# params["ipaddress"] = ipaddress
 		 
-		#response = JSON.parse(RestClient.get url, {params: params})
-		#return response["status"]
+		response = JSON.parse(RestClient.get url, {params: params})
+		log_search_result(response)
+		binding.pry
+		return response["status"]
 
-		result_status = ["valid", "invalid"]
-		status = result_status.sample
+		#result_status = ["valid", "invalid"]
+		#status = result_status.sample
+		#return status		
+	end
 
-		return status		
+	def log_search_result(response)
+		self.search_results.create(email_address: response["address"], 
+															 status: response["status"],
+															 sub_status: response["sub_status"],
+															 account: response["account"],
+															 domain: response["domain"],
+															 disposable: response["disposable"],
+															 toxic: response["toxic"],
+															 firstname: response["firstname"],
+															 lastname: response["lastname"],
+															 gender: response["gender"],
+															 location: response["location"] )
 	end
 
 	def format_to_email
 	end
+
+
 end

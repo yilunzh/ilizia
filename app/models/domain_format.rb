@@ -12,7 +12,7 @@ class DomainFormat < ApplicationRecord
 	end
 
 	def generate_or_update_score_on_status(status)
-		case status
+		case status.downcase
 		when "valid"
 			self.score += 1
 			self.upvote_count += 1

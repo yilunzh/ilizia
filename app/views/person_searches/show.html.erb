@@ -19,5 +19,9 @@
 	<p><%= email_format.format %> : <%= email_format.score %> : <%= email_format.upvote_count %> : <%= email_format.downvote_count %></p>
 <% end %>
 
+<% @search_results.each do |result| %>
+	<p><%= result.email_address %> : <%= result.status %> : <%= result.sub_status %></p>
+<% end %>
+
 <%= link_to 'Edit', edit_person_search_path(@person_search) %> |
 <%= link_to 'Back', person_searches_path %>
