@@ -81,7 +81,7 @@ class PersonSearch < ApplicationRecord
 		 
 		response = JSON.parse(RestClient.get url, {params: params})
 		log_search_result(response)
-		binding.pry
+
 		return response["status"]
 
 		#result_status = ["valid", "invalid"]

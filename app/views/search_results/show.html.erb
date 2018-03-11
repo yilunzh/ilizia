@@ -1,10 +1,4 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Email format:</strong>
-  <%= @search_result.email_format %>
-</p>
-
 <p>
   <strong>Email Address:</strong>
   <%= @search_result.email_address %>
@@ -13,6 +7,21 @@
 <p>
   <strong>Status:</strong>
   <%= @search_result.status %>
+</p>
+
+<p>
+  <strong>Sub Status:</strong>
+  <%= @search_result.sub_status %>
+</p>
+
+<p>
+  <strong>Disposable:</strong>
+  <%= @search_result.disposable %>
+</p>
+
+<p>
+  <strong>Toxic:</strong>
+  <%= @search_result.toxic %>
 </p>
 
 <%= link_to 'Edit', edit_search_result_path(@search_result) %> |
